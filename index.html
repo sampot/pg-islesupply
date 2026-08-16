@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#073e54" />
+    <meta
+      name="description"
+      content="島鏈補給：調度三艘補給船，在風向與颱風之間守住七座島十回合。"
+    />
+    <title>島鏈補給</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="water-glow" aria-hidden="true"></div>
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">ARCHIPELAGO LOGISTICS</p>
+          <h1>島鏈補給</h1>
+        </div>
+        <button id="sound-toggle" class="pill" type="button" aria-pressed="true">♫ 音樂開</button>
+      </header>
+
+      <section id="lobby" class="lobby panel">
+        <div class="lobby-art" aria-hidden="true">
+          <span>◒</span><span>⛵</span><span>◓</span>
+        </div>
+        <p class="kicker">十回合 · 七島 · 三船</p>
+        <h2>讓每盞港燈都亮著</h2>
+        <p>
+          中央港生產糧食、藥品與燃油。讀風、配貨、派船；任何有人島連續兩回合缺貨，航季就結束。
+        </p>
+        <div class="lobby-rules">
+          <div><strong>① 配貨</strong><span>先卸後裝，船艙有限</span></div>
+          <div><strong>② 看風</strong><span>順風快、逆風慢</span></div>
+          <div><strong>③ 撐十輪</strong><span>外島也會產少量特產</span></div>
+        </div>
+        <button id="start-button" class="primary big" type="button">鳴笛啟航</button>
+        <p class="best-line">最佳航季 <strong id="best-score">0</strong> 分 · 船旗 <strong id="unlock-count">0</strong>/2</p>
+      </section>
+
+      <section id="game" hidden>
+        <div class="hud">
+          <div><span>回合</span><strong id="turn-value">1 / 10</strong></div>
+          <div><span>安全島</span><strong id="safe-value">7 / 7</strong></div>
+          <div><span>航行中</span><strong id="sailing-value">0 艘</strong></div>
+          <div><span>預估分數</span><strong id="score-value">0</strong></div>
+        </div>
+
+        <section class="forecast-strip panel" aria-label="兩回合海象預報">
+          <div class="section-heading">
+            <div><p class="kicker">海象台</p><h2>兩回合預報</h2></div>
+            <span class="legend">↑ 北　→ 東　↓ 南　← 西</span>
+          </div>
+          <div id="forecast-cards" class="forecast-cards"></div>
+        </section>
+
+        <div class="game-grid">
+          <section class="map-panel panel" aria-label="島鏈航海圖">
+            <div class="map-heading">
+              <div><p class="kicker">航海圖</p><h2>點島查看庫存</h2></div>
+              <span id="map-status">港口作業中</span>
+            </div>
+            <div id="map" class="map">
+              <svg id="route-layer" viewBox="0 0 100 100" aria-hidden="true"></svg>
+              <div id="island-layer"></div>
+              <div id="ship-layer"></div>
+              <div class="compass" aria-hidden="true">N<br />✦</div>
+              <div class="waves" aria-hidden="true">≋　≋　≋</div>
+            </div>
+            <div id="island-detail" class="island-detail"></div>
+          </section>
+
+          <section class="planner panel">
+            <div class="section-heading">
+              <div><p class="kicker">調度台</p><h2>本輪船令</h2></div>
+              <span id="order-count" class="order-count">0 / 3</span>
+            </div>
+            <div id="ship-tabs" class="ship-tabs" role="tablist" aria-label="選擇船隻"></div>
+            <div id="ship-plan"></div>
+            <p id="plan-message" class="plan-message" role="status"></p>
+            <button id="resolve-button" class="primary big" type="button">送出三船命令</button>
+          </section>
+        </div>
+      </section>
+
+      <footer>
+        <button id="about-button" class="text-button" type="button">玩法與素材</button>
+        <span>Playgrounds · Sampot</span>
+      </footer>
+    </main>
+
+    <section id="report-sheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="report-title">
+      <div class="sheet-card">
+        <p id="report-kicker" class="kicker"></p>
+        <h2 id="report-title"></h2>
+        <div id="report-content"></div>
+        <button id="continue-button" class="primary big" type="button">查看下一輪</button>
+      </div>
+    </section>
+
+    <section id="about-sheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="about-title">
+      <div class="sheet-card about-card">
+        <p class="kicker">船長手冊</p>
+        <h2 id="about-title">玩法與素材</h2>
+        <ol>
+          <li>每輪替每艘靠岸船設定卸貨、裝貨和下一站；卸貨總是先發生。</li>
+          <li>所有命令一起結算。船抵達後，下輪可卸貨，並會在該輪消耗前入庫。</li>
+          <li>外島每輪產 1 箱特產；中央港大量生產，但倉庫滿了就不再收貨。</li>
+          <li>順風縮短航程、逆風延長；颱風發生時，本輪出港航程增加一回合。</li>
+          <li>任何島連續兩輪有任一關鍵物資不足即敗；全島維持十輪即勝。</li>
+        </ol>
+        <p>素材來源與授權見 <a href="./ATTRIBUTION.md">ATTRIBUTION.md</a>。</p>
+        <button id="about-close" class="primary big" type="button">收起手冊</button>
+      </div>
+    </section>
+
+    <script type="module" src="./app.js?v=islesupply-1"></script>
+  </body>
+</html>
