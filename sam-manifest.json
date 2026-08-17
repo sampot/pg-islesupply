@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "rev": "6f70b9e",
+  "files": [
+    "app.js",
+    "assets/audio/arrival.ogg",
+    "assets/audio/horn.ogg",
+    "assets/audio/island-loop.ogg",
+    "assets/audio/tick.ogg",
+    "assets/audio/warn.ogg",
+    "assets/audio/win.ogg",
+    "assets/fonts/cubic-11.woff2",
+    "assets/icons/fire.svg",
+    "assets/icons/flask_half.svg",
+    "assets/icons/resource_wheat.svg",
+    "assets/licenses/blippy-bits.txt",
+    "assets/licenses/cubic-11-ofl.txt",
+    "assets/licenses/kenney-board-game-icons.txt",
+    "assets/licenses/kenney-ui-audio.txt",
+    "audio.js",
+    "functions.js",
+    "game.js",
+    "index.html",
+    "persist.js",
+    "styles.css"
+  ]
+}
